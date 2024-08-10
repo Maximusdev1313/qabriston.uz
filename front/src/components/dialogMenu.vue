@@ -11,7 +11,7 @@
 .container {
   position: absolute;
   width: 100% !important;
-  height: 100vh;
+  height: 100%;
   top: 0;
 
   background-color: var(--vt-c-divider-dark-1);

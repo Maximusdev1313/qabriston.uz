@@ -1,7 +1,6 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import dialogueMenu from "./dialogMenu.vue";
-import axios from "axios";
 const toggleEvent = ref(false);
 const name = ref("");
 const surname = ref("");
@@ -11,18 +10,21 @@ const age = ref("");
 const gender = ref("");
 const dateOfBirth = ref();
 const dateOfDeath = ref();
-const row = ref();
-const col = ref();
+
 const addClient = () => {
-  const clientInfo = {
+  const personInfo = {
     name: name.value,
     surname: surname.value,
     middle_name: middleName.value,
     number: number.value,
     age: age.value,
     gender: gender.value,
+    date_od_birth: dateOfBirth.value,
+    date_of_death: dateOfDeath.value,
     cemetery_name: "qorasuv",
   };
+  console.log(personInfo);
+  localStorage.setItem("personInfo", JSON.stringify(personInfo));
 };
 
 const convertDate = (dateParam) => {
