@@ -24,13 +24,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    money: {
-        type: Number,
-        default: 0
-    },
     is_active: {
         type: Boolean,
-        default: false
+        default: true
     },
 
 

@@ -1,5 +1,12 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import maps from "../components/map.vue";
+</script>
 
 <template>
-  <main>home</main>
+  <main>
+    <Suspense>
+      <maps />
+    </Suspense>
+  </main>
 </template>

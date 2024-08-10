@@ -18,6 +18,8 @@ const PersonSchema = mongoose.Schema({
         enum: ['male', 'female'], // jinslar ro'yxati
         required: true
     },
+    row: Number,
+    column: Number,
     number: Number, // joy raqami
     cemetery_name: String, // qabriston nomi(registratsiya qilingandan keyin avtomatik qilinadi)
     location: {

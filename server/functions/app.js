@@ -16,8 +16,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('uploads'));
 
-// Log the DB_URI to check if it's loaded correctly
-console.log('DB_URI:', process.env.DB_URI);
 
 // Database connection
 mongoose.connect(process.env.DB_URI, {
@@ -29,6 +27,7 @@ mongoose.connect(process.env.DB_URI, {
 
 // Routes
 router.use('/api/persons', require('../urls/personUrl'));
+router.use('/api/user', require('../urls/userUrl'));
 
 app.use(`/.netlify/functions/app`, router);
 
