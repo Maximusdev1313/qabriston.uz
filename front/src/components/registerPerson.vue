@@ -11,7 +11,7 @@ const gender = ref("");
 const dateOfBirth = ref();
 const dateOfDeath = ref();
 
-const addClient = () => {
+const addPerson = () => {
   const personInfo = {
     name: name.value,
     surname: surname.value,
@@ -19,9 +19,9 @@ const addClient = () => {
     number: number.value,
     age: age.value,
     gender: gender.value,
-    date_od_birth: dateOfBirth.value,
+    date_of_birth: dateOfBirth.value,
     date_of_death: dateOfDeath.value,
-    cemetery_name: "qorasuv",
+    cemetery_name: "new  Cemetery test",
   };
   console.log(personInfo);
   localStorage.setItem("personInfo", JSON.stringify(personInfo));
@@ -77,8 +77,8 @@ watchEffect(() => {
 
             <select name="choice" v-model="gender" id="gender" required>
               <option value="">Jinsi</option>
-              <option value="man" selected>Erkak</option>
-              <option value="woman">Ayol</option>
+              <option value="male" selected>Erkak</option>
+              <option value="female">Ayol</option>
             </select>
             <input
               required=""
@@ -98,7 +98,7 @@ watchEffect(() => {
             />
             <div>Yoshi: {{ age }}</div>
 
-            <button type="button" class="submit" @click="addClient">
+            <button type="button" class="submit" @click="addPerson">
               Kiritish
             </button>
           </div>

@@ -28,6 +28,7 @@ mongoose.connect(process.env.DB_URI, {
 // Routes
 router.use('/api/persons', require('../urls/personUrl'));
 router.use('/api/user', require('../urls/userUrl'));
+router.use('/api/cemetery', require('../urls/cemeteryUrl'));
 
 app.use(`/.netlify/functions/app`, router);
 
