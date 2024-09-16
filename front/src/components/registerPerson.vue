@@ -10,7 +10,14 @@ const age = ref("");
 const gender = ref("");
 const dateOfBirth = ref();
 const dateOfDeath = ref();
-
+const toggleEffect = () => {
+  toggleEvent.value = !toggleEvent.value;
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+  document.body.classList.add("no-scroll");
+};
 const addPerson = () => {
   const personInfo = {
     name: name.value,
@@ -41,8 +48,8 @@ watchEffect(() => {
 
 <template>
   <div class="container">
-    <div class="flex-container" v-if="toggleEvent">
-      <dialogueMenu @close="toggleEvent = false">
+    <dialogueMenu @close="toggleEvent = false" v-if="toggleEvent">
+      <div class="flex-container">
         <form class="form">
           <div class="title title-center">Mayit qo'shish</div>
           <div class="input-wrapper">
@@ -103,15 +110,11 @@ watchEffect(() => {
             </button>
           </div>
         </form>
-      </dialogueMenu>
-    </div>
+      </div>
+    </dialogueMenu>
 
     <div class="wrapper">
-      <button
-        type="button"
-        class="toggle-button"
-        @click="toggleEvent = !toggleEvent"
-      >
+      <button type="button" class="toggle-button" @click="toggleEffect">
         <span
           class="material-symbols-outlined toggleUpDown"
           :class="{ rotate: toggleEvent }"
@@ -145,7 +148,7 @@ watchEffect(() => {
   width: 50px;
   height: 50px;
   border: none;
-  background-color: var(--vt-c-black-soft);
+  background-color: var(--vt-c-primary);
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -181,7 +184,7 @@ input,
   width: 100%;
   height: 30px;
 
-  background-color: rgb(78, 78, 177);
+  background-color: rgb(28, 28, 233);
   color: #fff;
   border: none;
   border-radius: 15px;

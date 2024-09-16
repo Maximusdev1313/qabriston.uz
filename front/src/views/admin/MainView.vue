@@ -70,15 +70,29 @@ const add_to_storage = async () => {
         </div>
       </div>
     </div>
-    <div class="title title-center">Iltimos dafn qilingan joyni belgilang</div>
     <register-person />
     <Suspense>
-      <Map />
+      <div class="map">
+        <div class="title title-center">
+          Iltimos dafn qilingan joyni belgilang
+        </div>
+        <Map />
+      </div>
     </Suspense>
   </div>
 </template>
 
 <style scoped>
+.person-info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--vt-c-black-soft);
+}
+.map {
+  margin-top: 150px;
+}
 .title {
   text-align: center;
   font-weight: bold;

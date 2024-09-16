@@ -7,58 +7,12 @@ const cemeteries = await store.getApi("/cemetery");
 const cemetery = store.getCemetery(cemeteries, store.user.cemetery_name);
 const blocks = ref(cemetery[0].blocks);
 const allPersons = await store.getApi("persons");
-
+const activeCell = ref(null);
+const emptyCellActive = ref(null);
 const persons = allPersons.filter(
   (person) => person.cemetery_name == "new  Cemetery test"
 );
 console.log(persons);
-// const persons = [
-//   {
-//     _id: "66b65c3470b4d46acf13543e4ae2",
-//     name: "shoh",
-//     number: 4564756756,
-//     block: 1,
-//     rows: 4,
-//     columns: 1,
-//     comment: "",
-//     cemetery_name: "ali market",
-//     date_of_birth: "avval",
-//     date_of_death: "google maps",
-//     created: "2024-08-09T18:13:08.105Z",
-//     registered_by: "",
-//     __v: 0,
-//   },
-//   {
-//     _id: "66b65c3470b4d46acf1e4ae2422",
-//     name: "shoh2",
-//     number: 4564756756,
-//     block: 1,
-//     rows: 3,
-//     columns: 2,
-//     comment: "",
-//     cemetery_name: "ali market",
-//     date_of_birth: "avval",
-//     date_of_death: "google maps",
-//     created: "2024-08-09T18:13:08.105Z",
-//     registered_by: "",
-//     __v: 0,
-//   },
-//   {
-//     _id: "66b65c3470b4d46acf1e42423ae2",
-//     name: "shoh1",
-//     number: 4564756756,
-//     block: 2,
-//     rows: 1,
-//     columns: 2,
-//     comment: "",
-//     cemetery_name: "ali market",
-//     date_of_birth: "avval",
-//     date_of_death: "google maps",
-//     created: "2024-08-09T18:13:08.105Z",
-//     registered_by: "",
-//     __v: 0,
-//   },
-// ];
 
 const gridStyles = (block) => {
   return {
@@ -73,11 +27,20 @@ const getPersonStyle = (person) => {
     gridRow: person.rows,
   };
 };
-
 const get = (e, index) => {
   localStorage.setItem("cellInfo", JSON.stringify(e));
+
+  console.log(e);
   localStorage.setItem("index", JSON.stringify(index));
   window.dispatchEvent(new Event("storage")); // Trigger storage event manually
+
+  if (e._id) {
+    emptyCellActive.value = e.uniqueId;
+    activeCell.value = null;
+  } else {
+    activeCell.value = e.uniqueId;
+    emptyCellActive.value = null;
+  }
 };
 
 // Create a grid with empty cells for each block
@@ -97,6 +60,7 @@ const grids = computed(() => {
             rows: row,
             columns: column,
             block: blockIndex + 1,
+            uniqueId: `${blockIndex + 1}-${row}-${column}`,
           }
         );
       }
@@ -108,7 +72,6 @@ const grids = computed(() => {
 
 <template>
   <div class="">
-    {{ persons }}
     <div v-for="(grid, index) in grids" :key="index" class="block-container">
       <h3>Block {{ index + 1 }}</h3>
       <div class="grid-container" :style="gridStyles(grid.block)">
@@ -116,7 +79,11 @@ const grids = computed(() => {
           v-for="cell in grid.gridArray"
           :key="cell._id"
           :style="getPersonStyle(cell)"
-          class="grid-item"
+          :class="{
+            'grid-item': true,
+            active: activeCell === cell.uniqueId,
+            'not-empty': emptyCellActive === cell.uniqueId,
+          }"
           @click="get(cell, index + 1)"
         >
           {{ cell.name || "+" }} {{ cell?.number }}
@@ -139,5 +106,12 @@ const grids = computed(() => {
   border: 1px solid #ccc;
   padding: 20px;
   text-align: center;
+}
+.active {
+  background-color: var(--vt-c-primary);
+}
+.not-empty {
+  color: #fff;
+  background-color: red;
 }
 </style>
